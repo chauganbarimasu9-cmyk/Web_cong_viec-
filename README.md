@@ -1,26 +1,26 @@
-# Web công việc – Tờ rơi gạch Đồng Tâm
+# Web công việc – Gạch, ngói, keo Đồng Tâm
 
-Bản web của tờ rơi A4 gấp 3 (2 mặt) giới thiệu gạch, ngói, keo Đồng Tâm và 18 đại lý hợp tác.
+Web cho khách chọn gạch Đồng Tâm theo ngân sách, kèm tờ rơi A4 gấp 3 có mã QR dẫn về web.
 
-- **Xem trên điện thoại:** các cột xếp thành 1 cột, bìa lên đầu.
-- **In:** bấm "In tờ rơi" (hoặc Ctrl+P), khổ A4 ngang, 2 trang, bật "Đồ hoạ nền".
-- **Mã đại lý:** thêm `?dl=<mã>` vào địa chỉ, ví dụ `index.html?dl=101290`. Mã QR và các nút sẽ trỏ tới `https://lechilinhwork-lgtm.github.io/?dl=<mã>`, giống các bản PDF riêng từng đại lý.
-
-## Cấu trúc
-
-| Đường dẫn | Nội dung |
+| Trang | Việc |
 |---|---|
-| `index.html` | Trang tờ rơi (HTML + CSS, mã QR tạo bằng thư viện `qrcode-generator`) |
-| `assets/img/` | Ảnh tách từ bản PDF, đã nén cho web |
-| `File tờ rơi/Bản mới 2026-11/` | Bản PDF gốc: bản chung và bản cho đại lý 101290, 110198 |
-| `File tờ rơi/ai-phoi-gach-gas/` | Mã Google Apps Script "Phối gạch bằng AI" và hướng dẫn cài |
+| `index.html` | Web khách: chọn gạch theo phòng, diện tích, mức đầu tư (giá lẻ niêm yết lấy trực tiếp từ máy chủ SalesTool), ngói, keo, chà ron, đại lý gần bạn, nhắn Zalo đại lý. Thêm `?dl=<mã đại lý>` để gắn đại lý. |
+| `to-roi.html` | Tờ rơi A4 ngang để in. Chọn đại lý ở thanh trên cùng để ra tờ riêng + QR riêng, rồi bấm "In / Lưu PDF". |
+| `to-roi-web.html` | Bản tờ rơi xem trên điện thoại (dựng lại từ bản PDF). |
+| `dai-ly.js` | Danh sách đại lý hợp tác (tên, địa chỉ, SĐT, toạ độ). Sửa ở đây là cả web và tờ rơi cùng đổi. |
+| `assets/img/` | Ảnh dùng trên web và tờ rơi. |
+| `tai-lieu/` | Brochure Đồng Tâm 3 (ảnh 2 mặt) để tham khảo. |
+| `File tờ rơi/` | Bản PDF tờ rơi đã in và mã Apps Script "Phối gạch bằng AI". |
 
-Thư mục `File tờ rơi/Fonts/` (font UTM, Myriad Pro) không đưa lên vì là font có bản quyền. Trang web dùng font Be Vietnam Pro của Google Fonts.
+## In tờ rơi
+Mở `to-roi.html`, chọn đại lý (hoặc "Chung"), in khổ A4, hướng ngang, lề "Không", bật "Đồ hoạ nền", in 2 mặt lật theo cạnh ngắn. Quét thử QR trước khi in cả lô.
 
 ## Bật GitHub Pages
+Settings → Pages → Source: *Deploy from a branch* → Branch `main`, thư mục `/ (root)` → Save. Trang chạy ở `https://chauganbarimasu9-cmyk.github.io/Web_cong_viec-/`. Mã QR trên tờ rơi trỏ về địa chỉ này nên cần bật Pages trước khi in.
 
-Settings → Pages → Source: *Deploy from a branch* → Branch `main`, thư mục `/ (root)` → Save. Vài phút sau trang có ở `https://chauganbarimasu9-cmyk.github.io/Web_cong_viec-/`.
+## Quy tắc nội dung
+- Kháng khuẩn chỉ nói theo 3 phiếu Viện Pasteur TP.HCM 06/06/2025 (ISO 22196:2011): diệt khoảng 87–92% sau 24 giờ. Không dùng "99%".
+- Không đưa giá sale/giá đại lý lên web và tờ rơi.
+- Khoá Gemini chỉ đặt trong *Script properties* của Apps Script, không ghi vào mã hay repo.
 
-## Lưu ý bảo mật
-
-Khoá Gemini chỉ đặt trong *Script properties* của Apps Script, không bao giờ ghi vào mã hay đưa lên repo này.
+Thư mục `Mau/` (dữ liệu gốc, file thiết kế .ai, slide nội bộ, font bản quyền) chỉ để trên máy, không đưa lên repo.

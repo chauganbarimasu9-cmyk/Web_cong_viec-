@@ -10,3 +10,7 @@ File tờ rơi/Fonts/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Thư mục dữ liệu gốc: đã lấy phần cần cho web ra ngoài.
+# Giữ lại trên máy: file thiết kế .ai/PDF 54 MB, slide nội bộ công ty, ghi chú rà soát nội bộ, font bản quyền.
+Mau/
