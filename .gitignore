@@ -1,0 +1,12 @@
+# Font thương mại (UTM, Myriad Pro) có bản quyền, không đưa lên repo công khai
+File tờ rơi/Fonts/
+
+# Khoá, cấu hình bí mật
+.env
+*.key
+.clasprc.json
+
+# Rác hệ điều hành
+Thumbs.db
+desktop.ini
+.DS_Store
