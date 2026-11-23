@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gạch Đồng Tâm – Tờ rơi đại lý</title>
-<meta name="description" content="Gạch ốp lát, ngói, keo dán gạch Đồng Tâm. Xem giá trên điện thoại, mua tại 18 đại lý hợp tác gần bạn.">
+<meta name="description" content="Gạch ốp lát, ngói, keo dán gạch Đồng Tâm. Xem giá trên điện thoại, mua tại 75 đại lý hợp tác gần bạn.">
 <link rel="icon" href="assets/img/logo-dongtam.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -189,14 +189,10 @@ p{margin:0}
     <div class="invite">MỜI ANH/CHỊ ĐẾN XEM MẪU THỰC TẾ<br>TẠI ĐẠI LÝ GẦN CÔNG TRÌNH</div>
     <div class="center">
       <div class="eyebrow">Đại lý hợp tác Đồng Tâm</div>
-      <h2>18 đại lý hợp tác gần bạn</h2>
+      <h2><span class="js-sodl">75</span> đại lý hợp tác gần bạn</h2>
       <p class="small">Quét mã QR để tìm cửa hàng gần công trình nhất</p>
     </div>
-    <div class="dealer"><h3>Tăng Nhơn Phú</h3>Thiên Lộc Home · Đặng Ngọc Anh</div>
-    <div class="dealer"><h3>Long Trường</h3>Thiên Lộc Home · Việt Mỹ Ceramic · Khang Anh Ceramic · Long Trường Phát · Gia Phát</div>
-    <div class="dealer"><h3>Long Bình</h3>Tân Hùng Anh · Đức Truyền · Thép Bình Nguyên · Hoàng Tiến Phong</div>
-    <div class="dealer"><h3>Phước Long</h3>Hoàng Lam · Thanh Nhàn · Tiến Phát · Nhật Nam · Hưng Lộc</div>
-    <div class="dealer"><h3>Hiệp Bình</h3>Khang Trang · Sao Việt SVC · Saigon Success</div>
+    <div class="js-khu"></div>
     <div class="qrbox">
       <a class="qr js-link js-qr" href="index.html" aria-label="Mở trang xem giá và đại lý"></a>
       <div>
@@ -235,7 +231,7 @@ p{margin:0}
         <li>Chống thấm, chống trầy xước</li>
       </ul>
     </div>
-    <p class="foot mt-auto">Mẫu thật có sẵn tại <em>18 đại lý hợp tác gần bạn</em></p>
+    <p class="foot mt-auto">Mẫu thật có sẵn tại <em>75 đại lý hợp tác gần bạn</em></p>
   </div>
 </section>
 
@@ -313,11 +309,12 @@ p{margin:0}
         <a class="btn red js-link" style="margin-top:10px" href="index.html">Mở ngay</a>
       </div>
     </div>
-    <p class="small center">Mẫu thật có sẵn tại <b style="color:var(--red)">18 đại lý hợp tác gần bạn</b><br>Quét mã để xem đại lý gần nhất</p>
+    <p class="small center">Mẫu thật có sẵn tại <b style="color:var(--red)">75 đại lý hợp tác gần bạn</b><br>Quét mã để xem đại lý gần nhất</p>
   </div>
 </section>
 </main>
 
+<script src="dai-ly.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 // Mã đại lý: thêm ?dl=101290 vào địa chỉ trang để QR và nút trỏ về đúng đại lý (giống bản PDF riêng từng đại lý).
@@ -330,6 +327,16 @@ p{margin:0}
     var q = qrcode(0, 'M'); q.addData(url); q.make();
     var svg = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
     document.querySelectorAll('.js-qr').forEach(function(el){ el.innerHTML = svg; });
+  }
+  if (window.DAI_LY) {
+    var khu = {}, thuTu = [];
+    DAI_LY.forEach(function(d){ d.cuaHang.forEach(function(c){
+      var p = c.diaChi.split(","), k = c.tinh || d.tinh, noi = (p[p.length-2]||"").trim().replace(/^(xã|phường)\s+/i,"");
+      if (!khu[k]) { khu[k] = {n:0, noi:[]}; thuTu.push(k); }
+      khu[k].n++; if (noi && khu[k].noi.indexOf(noi) < 0) khu[k].noi.push(noi);
+    }); });
+    document.querySelector(".js-khu").innerHTML = thuTu.map(function(k){ return "<div class=\"dealer\"><h3>" + k + " · " + khu[k].n + " đại lý</h3>" + khu[k].noi.join(" · ") + "</div>"; }).join("");
+    document.querySelectorAll(".js-sodl").forEach(function(e){ e.textContent = DAI_LY.length; });
   }
 })();
 </script>

@@ -7,7 +7,7 @@ Web cho khách chọn gạch Đồng Tâm theo ngân sách, kèm tờ rơi A4 g�
 | `index.html` | Web khách: chọn gạch theo phòng, diện tích, mức đầu tư (giá lẻ niêm yết lấy trực tiếp từ máy chủ SalesTool), ngói, keo, chà ron, đại lý gần bạn, nhắn Zalo đại lý. Thêm `?dl=<mã đại lý>` để gắn đại lý. |
 | `to-roi.html` | Tờ rơi A4 ngang để in. Chọn đại lý ở thanh trên cùng để ra tờ riêng + QR riêng, rồi bấm "In / Lưu PDF". |
 | `to-roi-web.html` | Bản tờ rơi xem trên điện thoại (dựng lại từ bản PDF). |
-| `dai-ly.js` | Danh sách đại lý hợp tác (tên, địa chỉ, SĐT, toạ độ). Sửa ở đây là cả web và tờ rơi cùng đổi. |
+| `dai-ly.js` | 75 đại lý hợp tác KV25 (Tây Ninh, Đồng Tháp): tên cửa hàng, địa chỉ, 1 số Zalo, toạ độ (đa số theo trung tâm xã/phường). Lấy từ file Excel BM01, file Excel không đưa lên repo. Sửa ở đây là cả web và tờ rơi cùng đổi. |
 | `assets/img/` | Ảnh dùng trên web và tờ rơi. |
 | `tai-lieu/` | Brochure Đồng Tâm 3 (ảnh 2 mặt) để tham khảo. |
 | `File tờ rơi/` | Bản PDF tờ rơi đã in và mã Apps Script "Phối gạch bằng AI". |

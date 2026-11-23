@@ -313,11 +313,13 @@ b{font-weight:800}
       set('js-dl-day', 'Quét mã QR để tìm cửa hàng gần công trình nhất');
       var khu={}, thuTu=[];
       DAI_LY.forEach(function(dl){ dl.cuaHang.forEach(function(c){
-        var p=c.diaChi.split(','), k=(p[p.length-2]||'').trim();
-        if(!khu[k]){ khu[k]=[]; thuTu.push(k); }
-        if(khu[k].indexOf(dl.ten)<0) khu[k].push(dl.ten);
+        var p=c.diaChi.split(','), k=c.tinh||dl.tinh||(p[p.length-1]||'').trim();
+        var noi=(p[p.length-2]||'').trim().replace(/^(xã|phường)\s+/i,'');
+        if(!khu[k]){ khu[k]={dl:0,noi:[]}; thuTu.push(k); }
+        khu[k].dl++;
+        if(noi && khu[k].noi.indexOf(noi)<0) khu[k].noi.push(noi);
       }); });
-      set('js-chs', thuTu.map(function(k){ return '<div class="c"><b style="font-size:8.4pt;color:var(--do2)">📍 '+esc(k)+'</b><br>'+khu[k].map(esc).join(' · ')+'</div>'; }).join(''));
+      set('js-chs', thuTu.map(function(k){ return '<div class="c"><b style="font-size:8.4pt;color:var(--do2)">📍 '+esc(k)+' · '+khu[k].dl+' đại lý</b><br>'+khu[k].noi.map(esc).join(' · ')+'</div>'; }).join(''));
       set('js-dl-dc', 'Quét mã để xem đại lý gần nhất');
     }
     document.title='To roi A4 - '+(d?d.ten:'Chung');
