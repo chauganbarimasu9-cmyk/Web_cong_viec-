@@ -217,7 +217,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
     <div class="buoc">
       <div class="buoc-tieu">2 · Diện tích khoảng bao nhiêu?</div>
       <div class="m2"><input id="m2" type="number" inputmode="decimal" min="1" step="1" value="30" aria-label="Diện tích (m²)"><span>m²</span></div>
-      <div class="m2-goi" id="m2-goi">Đã cộng 5% hao hụt khi thi công.</div>
+      <div class="m2-goi" id="m2-goi">Đã cộng 2% hao hụt khi thi công.</div>
     </div>
 
     <div class="buoc">
@@ -299,7 +299,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
         <li>Phòng khách rộng: 60x60, 80x80, 60x120 cho cảm giác rộng, ít đường ron.</li>
         <li>Nhà vệ sinh: nền 30x30, 30x60 men mờ chống trơn; tường 30x60, 40x80.</li>
         <li>Nền và tường cùng tông, cùng kích thước tương thích (vd nền 60x60, ốp 30x60).</li>
-        <li>Mua dư 5% để phòng hao hụt và tránh khác lô màu khi cần bổ sung.</li>
+        <li>Mua dư 1–2% để phòng hao hụt và tránh khác lô màu khi cần bổ sung.</li>
         <li>Dùng keo dán gạch chuyên dụng để gạch bám chắc, không bộp.</li>
       </ul></div>
     </details>
@@ -340,7 +340,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 var APPS_URL='https://script.google.com/macros/s/AKfycbyrO8symCYOkWsGG0nRWPF7gpndC3mzEVUk15UvWrA0O81ZUumW-kX_gEOZhtCJ34bMVQ/exec';
 var APP_KEY='QDy3MCObF1FLdoBexB9XO3dECy64';
 var CACHE_KEY='tg_cache_v2', CACHE_GIO=6;   // giữ bảng giá 6 tiếng trên máy khách
-var HAO_HUT=1.05;
+var HAO_HUT=1.02;   // mua dư 1–2%
 
 var qs=new URLSearchParams(location.search);
 var maDL=(qs.get('dl')||'').trim();
@@ -417,7 +417,7 @@ document.getElementById('tim-gan').onclick=layViTri;
 // ===== CHỌN GẠCH =====
 var PHONG=[
   {id:'khach', ten:'Phòng khách', ic:'🛋️', m2:30, kc:['600x600','800x800','600x1200','1000x1000'], xuong:'porcelain', cn:['LÁT_NỀN','ỐP_LÁT']},
-  {id:'ngu',   ten:'Phòng ngủ',   ic:'🛏️', m2:15, kc:['600x600','800x800','150x600','200x800','200x1200','600x1200'], xuong:'porcelain', cn:['LÁT_NỀN','ỐP_LÁT','GẠCH_GỖ']},
+  {id:'ngu',   ten:'Phòng ngủ',   ic:'🛏️', m2:15, kc:['600x600','800x800','600x1200'], xuong:'porcelain', cn:['LÁT_NỀN','ỐP_LÁT']},
   {id:'bep',   ten:'Nền bếp',     ic:'🍳', m2:12, kc:['600x600','800x800','300x600','400x800'], xuong:'porcelain', cn:['LÁT_NỀN','ỐP_LÁT']},
   {id:'tuong', ten:'Tường bếp, WC', ic:'🧱', m2:25, kc:['300x600','400x800','250x400','300x450','250x600'], cn:['ỐP_TƯỜNG','ỐP_LÁT']},
   {id:'wc',    ten:'Nền nhà vệ sinh', ic:'🚿', m2:5, kc:['300x300','400x400','300x600','250x250'], xuong:'porcelain', men:['MỜ'], cn:['LÁT_NỀN','ỐP_LÁT']},
@@ -490,6 +490,7 @@ function baoLoi(){
 
 function hopPhong(p, chiKK){
   return SP.filter(function(s){
+    if(s.cn==='GẠCH_GỖ') return false;   // gạch vân gỗ đã ngừng, hết hàng
     if(p.kc.indexOf(s.kc)<0) return false;
     if(p.xuong && s.x!==p.xuong) return false;
     if(p.cn && s.cn && p.cn.indexOf(s.cn)<0) return false;
@@ -529,7 +530,7 @@ function veTatCa(){
   var kk=document.getElementById('chi-kk').checked;
   var ds=hopPhong(phong,kk);
   var m2=dienTich(), luong=m2*HAO_HUT, ns=nganSach();
-  document.getElementById('m2-goi').textContent = m2 ? 'Cần mua khoảng '+(Math.ceil(luong*10)/10).toLocaleString('vi-VN')+' m² (đã cộng 5% hao hụt).' : 'Nhập diện tích để tính tiền dự kiến.';
+  document.getElementById('m2-goi').textContent = m2 ? 'Cần mua khoảng '+(Math.ceil(luong*10)/10).toLocaleString('vi-VN')+' m² (đã cộng 2% hao hụt).' : 'Nhập diện tích để tính tiền dự kiến.';
   var t=chiaTang(ds);
   var elT=document.getElementById('ds-tang');
   if(!t){ elT.innerHTML='<div class="trong">Chưa có mẫu phù hợp. Bỏ tick “kháng khuẩn” hoặc chọn khu vực khác.</div>'; document.getElementById('ket-qua').innerHTML=''; return; }

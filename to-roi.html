@@ -103,6 +103,8 @@ b{font-weight:800}
 /* ---- Nano ---- */
 .nano-dau{display:flex;gap:3mm;align-items:center}
 .nano-dau .khien{margin:0;flex:0 0 15mm;height:18mm}
+.bia .tren .tem{height:19mm;margin-left:auto}
+.nano-dau .tem{flex:0 0 17mm;width:17mm;height:auto}
 .nano .anh{height:40mm;border-radius:3mm;margin:3.5mm 0;background:url(assets/img/catania-002-nano.jpg) center 30%/cover no-repeat}
 .thanh-kq{margin-top:2.5mm;display:grid;gap:2.2mm}
 .tk .nhan{display:flex;justify-content:space-between;font-size:7.8pt}
@@ -146,6 +148,11 @@ b{font-weight:800}
 .muc{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5mm;margin-top:3.5mm}
 .muc span{background:rgba(255,255,255,.14);border:.25mm solid rgba(255,255,255,.35);border-radius:2mm;text-align:center;padding:1.8mm 0;font-size:7.8pt;font-weight:800}
 .ns .qr-khoi{border-color:#fff}
+.ns .dt{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:4mm;margin:3mm 0}
+.ns .dt-may{height:100%;max-height:62mm;aspect-ratio:375/812;background:#1b1b1b;border:1.4mm solid #1b1b1b;border-radius:4.5mm;overflow:hidden;box-shadow:0 2mm 5mm rgba(0,0,0,.35);transform:rotate(-4deg)}
+.ns .dt-may img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:3mm;display:block}
+.ns .dt-chu{flex:0 0 33mm;font-size:7.6pt;line-height:1.4;opacity:.95}
+.ns .dt-chu b{display:block;font-size:9pt;color:var(--vang);margin-bottom:.8mm;opacity:1}
 .ns .qr-khoi .ct b{color:var(--do)}
 .ns .qr-khoi .ct p{color:var(--chu);font-size:7.6pt;margin-top:1mm}
 .ns .dl-cuoi{margin-top:3mm;font-size:7.8pt;line-height:1.4;text-align:center;opacity:.95}
@@ -176,13 +183,13 @@ b{font-weight:800}
   <div class="pn cn">
     <h2><small>Cẩm nang cho chủ nhà</small>Chọn đúng gạch cho từng không gian</h2>
     <div class="r"><div class="ic">🛋️</div><div><b>Phòng khách</b><p>Porcelain khổ lớn 60x60, 80x80, 60x120. Ít đường ron, nhìn rộng và sang.</p></div></div>
-    <div class="r"><div class="ic">🛏️</div><div><b>Phòng ngủ</b><p>Gạch vân gỗ hoặc men mờ tông ấm. Mát chân, ấm cúng, dễ lau.</p></div></div>
+    <div class="r"><div class="ic">🛏️</div><div><b>Phòng ngủ</b><p>Men mờ tông ấm hoặc tông tối. Mát chân, ấm cúng, dễ lau.</p></div></div>
     <div class="r"><div class="ic">🍳</div><div><b>Bếp</b><p>Bề mặt mờ mịn hoặc bóng, dễ lau dầu mỡ. Tường bếp nên dùng men kháng khuẩn.</p></div></div>
     <div class="r"><div class="ic">🚿</div><div><b>Nhà vệ sinh</b><p>Nền men mờ chống trơn 30x30, 30x60. Tường 30x60, 40x80 cùng tông với nền.</p></div></div>
     <div class="r"><div class="ic">🌿</div><div><b>Sân, ban công, sân thượng</b><p>Porcelain mờ nhám chống trượt, chịu nắng mưa, không thấm.</p></div></div>
     <div class="meo"><b>Mẹo mua gạch không tốn tiền oan</b>
       <ul>
-        <li>Mua dư khoảng 5% để phòng hao hụt và tránh lệch lô màu.</li>
+        <li>Mua dư khoảng 1–2% để phòng hao hụt và tránh lệch lô màu.</li>
         <li>Lát nền nên chọn xương Porcelain, ốp tường có thể dùng Ceramic.</li>
         <li>Dùng keo dán gạch chuyên dụng để gạch bám chắc, không bộp.</li>
         <li>Xem mẫu thật dưới ánh sáng cửa hàng trước khi chốt.</li>
@@ -219,7 +226,7 @@ b{font-weight:800}
     <div class="tren">
       <img src="assets/img/logo-dongtam.png" alt="">
       <div class="ten">Dongtam<small>Vì cuộc sống tươi đẹp</small></div>
-      <div class="khien"><b>NANO</b><span>KHÁNG<br>KHUẨN</span></div>
+      <img class="tem" src="assets/img/tem-nano.webp" alt="Tem công nghệ kháng khuẩn Nano Đồng Tâm">
     </div>
     <div class="anh">
       <span class="gach">GẠCH · VÂN ĐÁ PORCELAIN</span>
@@ -244,7 +251,7 @@ b{font-weight:800}
   <!-- Nano -->
   <div class="pn nano">
     <div class="nano-dau">
-      <div class="khien"><b>NANO</b><span>KHÁNG<br>KHUẨN</span></div>
+      <img class="tem" src="assets/img/tem-nano.webp" alt="Tem công nghệ kháng khuẩn Nano Đồng Tâm">
       <h2><small>Công nghệ men mới</small>Men Nano kháng khuẩn bảo vệ cả gia đình</h2>
     </div>
     <div class="anh"></div>
@@ -275,7 +282,7 @@ b{font-weight:800}
       <span>Mài men toàn phần</span><span>Gạch đồng chất</span>
       <span>In kỹ thuật số</span><span>Vân đá tự nhiên</span>
     </div>
-    <div class="kt"><b>Kích thước:</b> 100x100, 60x120, 80x80, 60x60, 40x80, 30x60, 30x30, gạch thanh vân gỗ 20x120, 15x60…</div>
+    <div class="kt"><b>Kích thước:</b> 100x100, 60x120, 80x80, 60x60, 40x80, 30x60, 30x30…</div>
     <div class="bo"><b>Trọn bộ vật liệu Đồng Tâm cho ngôi nhà</b>
       <div><span>🏠</span><p><b>Ngói tráng men TITAN, ALPHA:</b> 24 màu, bền màu, chống rêu mốc. ALPHA bảo hành màu 50 năm.</p></div>
       <div><span>🧴</span><p><b>Keo dán gạch GECKO:</b> thay hồ dầu, gạch bám chắc, không bộp.</p></div>
@@ -294,6 +301,10 @@ b{font-weight:800}
     <div class="b"><div class="so">3</div><div><b>Xem mẫu hợp ngân sách</b><p>Có hình ảnh, giá niêm yết, tổng tiền dự kiến và số bao keo, bột chà ron cần mua.</p></div></div>
     <div class="muc"><span>Tiết kiệm</span><span>Phổ thông</span><span>Cao cấp</span></div>
     <div class="b"><div class="so">4</div><div><b>Chọn đại lý gần công trình</b><p>Xem mẫu thật, nhận báo giá chính xác và chiết khấu theo công trình.</p></div></div>
+    <div class="dt">
+      <div class="dt-may"><img src="assets/img/web-dien-thoai.jpg" alt="Trang web chọn gạch theo ngân sách trên điện thoại"></div>
+      <div class="dt-chu"><b>Màn hình bạn sẽ thấy</b>sau khi quét mã: chọn phòng, nhập diện tích, xem ngay mẫu và tổng tiền.</div>
+    </div>
     <div class="qr-khoi" style="margin-top:auto">
       <div class="qr js-qr"></div>
       <div class="ct"><b>Quét để bắt đầu</b><p>Giá luôn cập nhật mới nhất trên điện thoại của bạn.</p></div>
