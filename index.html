@@ -409,7 +409,7 @@ function capNhatThanh(){
   var s = DL ? sdtCH(DL.cuaHang[0]) : HOTLINE_HO_TRO;
   var goi=document.getElementById('thanh-goi');
   goi.href='tel:'+s; goi.textContent = DL ? '📞 Gọi '+DL.ten : '📞 Gọi tư vấn';
-  document.getElementById('tho-zalo').href='https://zalo.me/'+s;
+  document.getElementById('tho-zalo').href='https://zalo.me/'+(DL ? s : ZALO_HO_TRO);
 }
 document.getElementById('tim-gan').onclick=layViTri;
 (function(a){ if(LINK_MAP_TAT_CA) a.href=LINK_MAP_TAT_CA; else a.style.display='none'; })(document.getElementById('map-tat-ca'));

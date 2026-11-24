@@ -218,7 +218,7 @@ b{font-weight:800}
         <ul><li>Xem gạch, ngói, keo Đồng Tâm và giá niêm yết</li><li>Chọn mẫu theo số tiền bạn có</li><li>Tìm đại lý gần công trình, chỉ đường tới nơi</li></ul>
       </div>
     </div>
-    <div class="hl">Hỗ trợ kỹ thuật & báo giá công trình: <b class="js-hotline"></b></div>
+    <div class="hl">Hỗ trợ kỹ thuật & báo giá công trình: <b class="js-hotline"></b><br>Zalo hỗ trợ & tư vấn: <b class="js-zalo"></b></div>
   </div>
 
   <!-- Bìa -->
@@ -335,6 +335,7 @@ b{font-weight:800}
     document.getElementById('link-qr').textContent=link;
     set('js-qr', qrSvg(link));
     set('js-hotline', dinhDangSdt(HOTLINE_HO_TRO));
+    set('js-zalo', dinhDangSdt(ZALO_HO_TRO));
     if(d){
       set('js-dl-ten', esc(d.ten));
       set('js-dl-day', esc(d.tenDay));

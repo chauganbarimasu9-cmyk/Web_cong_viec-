@@ -59,6 +59,10 @@ p{margin:0}
 .dealer h3 .so{color:var(--red);font-size:20px;font-weight:800}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .chips span{background:var(--soft);border-radius:999px;padding:3px 10px;font-size:12.5px;line-height:1.4;white-space:nowrap}
+.lienhe{display:grid;gap:8px}
+.lienhe a{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none;font-size:13.5px}
+.lienhe span{flex:1;color:var(--muted)}
+.lienhe b{color:var(--red);white-space:nowrap}
 .qrbox{border:1.5px solid var(--dark);border-radius:12px;padding:14px;display:flex;gap:14px;align-items:center}
 .qr{width:140px;flex:none;aspect-ratio:1;display:block}
 .qr svg{width:100%;height:100%;display:block}
@@ -208,6 +212,10 @@ p{margin:0}
       </div>
     </div>
     <p class="small center">Quét mã → <b style="color:var(--ink)">nhắn Zalo đại lý gần nhà</b>, được tư vấn &amp; báo giá tận nơi</p>
+    <div class="lienhe">
+      <a class="js-tel" href="#">📞 <span>Hỗ trợ kỹ thuật &amp; báo giá công trình</span><b class="js-hotline"></b></a>
+      <a class="js-zl" href="#" target="_blank" rel="noopener">💬 <span>Zalo hỗ trợ &amp; tư vấn</span><b class="js-zalo"></b></a>
+    </div>
     <div class="note">
       <h3>Ưu đãi khách tờ rơi</h3>
       <p>Tính số lượng, phối mẫu miễn phí và giữ hàng cùng lô màu cho cả công trình. Nhắn Zalo cửa hàng qua mã QR để được áp dụng.</p>
@@ -330,6 +338,12 @@ p{margin:0}
     var q = qrcode(0, 'M'); q.addData(url); q.make();
     var svg = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
     document.querySelectorAll('.js-qr').forEach(function(el){ el.innerHTML = svg; });
+  }
+  if (window.HOTLINE_HO_TRO) {
+    document.querySelectorAll('.js-hotline').forEach(function(e){ e.textContent = dinhDangSdt(HOTLINE_HO_TRO); });
+    document.querySelectorAll('.js-zalo').forEach(function(e){ e.textContent = dinhDangSdt(ZALO_HO_TRO); });
+    document.querySelectorAll('.js-tel').forEach(function(a){ a.href = 'tel:' + HOTLINE_HO_TRO; });
+    document.querySelectorAll('.js-zl').forEach(function(a){ a.href = 'https://zalo.me/' + ZALO_HO_TRO; });
   }
   if (window.DAI_LY) {
     var khu = {}, thuTu = [];
