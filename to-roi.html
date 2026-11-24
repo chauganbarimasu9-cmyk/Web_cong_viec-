@@ -60,6 +60,14 @@ b{font-weight:800}
 .chs{margin-top:3mm;display:grid;gap:1.8mm}
 .chs .c{background:#fff;border:.25mm solid var(--vien);border-radius:2.5mm;padding:2.2mm 3mm;font-size:8.2pt;line-height:1.35}
 .chs .c b{font-size:9.6pt;color:var(--chu)}
+.tinh-luoi{display:grid;gap:2.5mm}
+.tinh{background:#fff;border:.25mm solid var(--vien);border-radius:2.5mm;padding:2.8mm 3.2mm}
+.tinh-dau{display:flex;align-items:center;gap:2.5mm;padding-bottom:2mm;border-bottom:.25mm dashed var(--vien)}
+.tinh-dau b{font-size:22pt;line-height:1;font-weight:900;color:var(--do)}
+.tinh-dau span{font-size:8pt;line-height:1.2;font-weight:700;color:var(--phu);text-transform:uppercase;letter-spacing:.3pt}
+.tinh-noi{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2mm;margin-top:2mm}
+.tinh-noi i{font-style:normal;font-size:7.6pt;font-weight:600;background:var(--nen);border-radius:1.5mm;padding:1mm 1.2mm;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tinh-them{margin-top:1.8mm;font-size:7pt;color:var(--phu);font-style:italic;text-align:center}
 .qr-khoi{margin-top:auto;background:#fff;border-radius:3.5mm;border:.4mm solid var(--do);padding:3.5mm;display:flex;gap:3.5mm;align-items:center}
 .qr{flex:0 0 31mm;height:31mm}
 .qr svg{width:100%;height:100%;display:block}
@@ -315,11 +323,18 @@ b{font-weight:800}
       DAI_LY.forEach(function(dl){ dl.cuaHang.forEach(function(c){
         var p=c.diaChi.split(','), k=c.tinh||dl.tinh||(p[p.length-1]||'').trim();
         var noi=(p[p.length-2]||'').trim().replace(/^(xã|phường)\s+/i,'');
-        if(!khu[k]){ khu[k]={dl:0,noi:[]}; thuTu.push(k); }
+        if(!khu[k]){ khu[k]={dl:0,dem:{}}; thuTu.push(k); }
         khu[k].dl++;
-        if(noi && khu[k].noi.indexOf(noi)<0) khu[k].noi.push(noi);
+        if(noi) khu[k].dem[noi]=(khu[k].dem[noi]||0)+1;
       }); });
-      set('js-chs', thuTu.map(function(k){ return '<div class="c"><b style="font-size:8.4pt;color:var(--do2)">📍 '+esc(k)+' · '+khu[k].dl+' đại lý</b><br>'+khu[k].noi.map(esc).join(' · ')+'</div>'; }).join(''));
+      // Mỗi tỉnh một ô: số đại lý lớn + 6 khu vực nhiều đại lý nhất
+      set('js-chs', '<div class="tinh-luoi">'+thuTu.map(function(k){
+        var ds=Object.keys(khu[k].dem).sort(function(a,b){ return khu[k].dem[b]-khu[k].dem[a]; });
+        var chinh=ds.slice(0,6), con=ds.length-chinh.length;
+        return '<div class="tinh"><div class="tinh-dau"><b>'+khu[k].dl+'</b><span>đại lý<br>'+esc(k)+'</span></div>'
+          +'<div class="tinh-noi">'+chinh.map(function(n){ return '<i>'+esc(n)+'</i>'; }).join('')+'</div>'
+          +(con>0?'<div class="tinh-them">và '+con+' khu vực khác · quét QR để xem đủ</div>':'')+'</div>';
+      }).join('')+'</div>');
       set('js-dl-dc', 'Quét mã để xem đại lý gần nhất');
     }
     document.title='To roi A4 - '+(d?d.ten:'Chung');

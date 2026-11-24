@@ -56,6 +56,9 @@ p{margin:0}
 .small{font-size:13px;color:var(--muted)}
 .dealer{border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px}
 .dealer h3{color:var(--ink)}
+.dealer h3 .so{color:var(--red);font-size:20px;font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips span{background:var(--soft);border-radius:999px;padding:3px 10px;font-size:12.5px;line-height:1.4;white-space:nowrap}
 .qrbox{border:1.5px solid var(--dark);border-radius:12px;padding:14px;display:flex;gap:14px;align-items:center}
 .qr{width:140px;flex:none;aspect-ratio:1;display:block}
 .qr svg{width:100%;height:100%;display:block}
@@ -335,7 +338,7 @@ p{margin:0}
       if (!khu[k]) { khu[k] = {n:0, noi:[]}; thuTu.push(k); }
       khu[k].n++; if (noi && khu[k].noi.indexOf(noi) < 0) khu[k].noi.push(noi);
     }); });
-    document.querySelector(".js-khu").innerHTML = thuTu.map(function(k){ return "<div class=\"dealer\"><h3>" + k + " · " + khu[k].n + " đại lý</h3>" + khu[k].noi.join(" · ") + "</div>"; }).join("");
+    document.querySelector(".js-khu").innerHTML = thuTu.map(function(k){ return "<div class=\"dealer\"><h3><b class=\"so\">" + khu[k].n + "</b> đại lý · " + k + "</h3><div class=\"chips\">" + khu[k].noi.map(function(n){ return "<span>" + n + "</span>"; }).join("") + "</div></div>"; }).join("");
     document.querySelectorAll(".js-sodl").forEach(function(e){ e.textContent = DAI_LY.length; });
   }
 })();
