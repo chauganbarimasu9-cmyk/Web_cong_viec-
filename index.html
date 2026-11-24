@@ -371,7 +371,7 @@ function htmlCuaHang(ch, coTen, dl){
     +'</div></div>';
 }
 // Khu vực = phường trong địa chỉ ("…, Phước Long, TP.HCM" → "Phước Long")
-function khuCua(ch){ if(ch.tinh) return ch.tinh; var p=String(ch.diaChi).split(','); return (p[p.length-2]||'').trim(); }
+function khuCua(ch){ var p=String(ch.diaChi).split(','); return (p[p.length-2]||'').trim().replace(/^(xã|phường)\s+/i,''); }
 var khuChon='', soDL=6;
 function tatCaCuaHang(){
   var tat=[];
@@ -380,7 +380,7 @@ function tatCaCuaHang(){
 }
 function veDaiLy(){
   var tat=tatCaCuaHang();
-  document.getElementById('dl-mo-ta').textContent=DAI_LY.length+' đại lý hợp tác Đồng Tâm khu vực Tây Ninh và Đồng Tháp. Chọn cửa hàng gần công trình để xem mẫu thật, nhận báo giá và chiết khấu.';
+  document.getElementById('dl-mo-ta').textContent=DAI_LY.length+' đại lý hợp tác Đồng Tâm khu vực Đồng Tháp. Chọn cửa hàng gần công trình để xem mẫu thật, nhận báo giá và chiết khấu.';
   var khus=[]; tat.forEach(function(x){ if(x.khu && khus.indexOf(x.khu)<0) khus.push(x.khu); });
   var elK=document.getElementById('ds-khu');
   elK.innerHTML=[''].concat(khus).map(function(k){ return '<button data-k="'+esc(k)+'" class="'+(k===khuChon?'on':'')+'">'+(k?esc(k):'Tất cả khu vực')+'</button>'; }).join('');
