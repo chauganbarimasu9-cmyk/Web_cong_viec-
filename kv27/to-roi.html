@@ -68,6 +68,10 @@ b{font-weight:800}
 .tinh-noi{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2mm;margin-top:2mm}
 .tinh-noi i{font-style:normal;font-size:8pt;font-weight:600;background:var(--nen);border-radius:1.6mm;padding:1.1mm 1.4mm;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tinh-noi i b{color:var(--do);font-weight:800}
+.dl-ds{margin-top:2mm;display:grid;grid-template-columns:1fr 1fr;gap:.8mm}
+.dl-ds i{font-style:normal;background:var(--nen);border-radius:1.4mm;padding:.55mm 1.6mm;display:flex;justify-content:space-between;align-items:baseline;gap:1mm;min-width:0}
+.dl-ds i b{font-size:7.6pt;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dl-ds i small{font-size:6pt;color:var(--phu);white-space:nowrap}
 .tinh-them{margin-top:1.8mm;font-size:7pt;color:var(--phu);font-style:italic;text-align:center}
 .loi{margin-top:2.5mm;background:#fff;border:.25mm solid var(--vien);border-radius:2.5mm;padding:2.6mm 3mm}
 .loi-tit{display:block;font-size:8.4pt;color:var(--do2);margin-bottom:1.8mm}
@@ -352,16 +356,16 @@ b{font-weight:800}
       DAI_LY.forEach(function(dl){ dl.cuaHang.forEach(function(c){
         var p=c.diaChi.split(','), k=c.tinh||dl.tinh||(p[p.length-1]||'').trim();
         var noi=(p[p.length-2]||'').trim().replace(/^(xã|phường)\s+/i,'');
-        if(!khu[k]){ khu[k]={dl:0,dem:{}}; thuTu.push(k); }
+        if(!khu[k]){ khu[k]={dl:0,dem:{},ten:{}}; thuTu.push(k); }
         khu[k].dl++;
-        if(noi) khu[k].dem[noi]=(khu[k].dem[noi]||0)+1;
+        if(noi){ khu[k].dem[noi]=(khu[k].dem[noi]||0)+1; (khu[k].ten[noi]=khu[k].ten[noi]||[]).push(dl.ten); }
       }); });
       // Mỗi tỉnh một ô: số đại lý lớn + 6 khu vực nhiều đại lý nhất
       set('js-chs', '<div class="tinh-luoi">'+thuTu.map(function(k){
         var ds=Object.keys(khu[k].dem).sort(function(a,b){ return khu[k].dem[b]-khu[k].dem[a]; });
         var chinh=ds, con=0;   // hiện đủ mọi khu vực, kèm số cửa hàng
         return '<div class="tinh"><div class="tinh-dau"><b>'+khu[k].dl+'</b><span>đại lý<br>'+esc(k)+'</span></div>'
-          +'<div class="tinh-noi">'+chinh.map(function(n){ return '<i>'+esc(n)+' <b>· '+khu[k].dem[n]+'</b></i>'; }).join('')+'</div>'
+          +'<div class="dl-ds">'+chinh.map(function(n){ return khu[k].ten[n].map(function(t){ return '<i><b>'+esc(t)+'</b><small>'+esc(n)+'</small></i>'; }).join(''); }).join('')+'</div>'
           +(con>0?'<div class="tinh-them">và '+con+' khu vực khác · quét QR để xem đủ</div>':'')+'</div>';
       }).join('')+'</div>');
       set('js-dl-dc', 'Quét mã để xem đại lý gần nhất');

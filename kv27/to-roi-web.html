@@ -57,6 +57,7 @@ p{margin:0}
 .dealer{border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px}
 .dealer h3{color:var(--ink)}
 .dealer h3 .so{color:var(--red);font-size:20px;font-weight:800}
+.dealer .nhom{margin:10px 0 0;font-size:12px;font-weight:700;color:var(--dark);text-transform:uppercase;letter-spacing:.04em}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .chips span{background:var(--soft);border-radius:999px;padding:3px 10px;font-size:12.5px;line-height:1.4;white-space:nowrap}
 .lienhe{display:grid;gap:8px}
@@ -349,10 +350,10 @@ p{margin:0}
     var khu = {}, thuTu = [];
     DAI_LY.forEach(function(d){ d.cuaHang.forEach(function(c){
       var p = c.diaChi.split(","), k = c.tinh || d.tinh, noi = (p[p.length-2]||"").trim().replace(/^(xã|phường)\s+/i,"");
-      if (!khu[k]) { khu[k] = {n:0, noi:[]}; thuTu.push(k); }
-      khu[k].n++; if (noi && khu[k].noi.indexOf(noi) < 0) khu[k].noi.push(noi);
+      if (!khu[k]) { khu[k] = {n:0, noi:[], ten:{}}; thuTu.push(k); }
+      khu[k].n++; if (noi && khu[k].noi.indexOf(noi) < 0) khu[k].noi.push(noi); if (noi) (khu[k].ten[noi] = khu[k].ten[noi] || []).push(d.ten);
     }); });
-    document.querySelector(".js-khu").innerHTML = thuTu.map(function(k){ return "<div class=\"dealer\"><h3><b class=\"so\">" + khu[k].n + "</b> đại lý · " + k + "</h3><div class=\"chips\">" + khu[k].noi.map(function(n){ return "<span>" + n + "</span>"; }).join("") + "</div></div>"; }).join("");
+    document.querySelector(".js-khu").innerHTML = thuTu.map(function(k){ return "<div class=\"dealer\"><h3><b class=\"so\">" + khu[k].n + "</b> đại lý · " + k + "</h3>" + khu[k].noi.map(function(n){ return "<p class=\"nhom\">" + n + " · " + khu[k].ten[n].length + "</p><div class=\"chips\">" + khu[k].ten[n].map(function(t){ return "<span>" + t + "</span>"; }).join("") + "</div>"; }).join("") + "</div>"; }).join("");
     document.querySelectorAll(".js-sodl").forEach(function(e){ e.textContent = DAI_LY.length; });
   }
 })();

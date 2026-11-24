@@ -10,7 +10,7 @@ var HOTLINE_HO_TRO_TEN = 'Hỗ trợ kỹ thuật Đồng Tâm';
 var LINK_MAP_TAT_CA = '';
 
 var DAI_LY = [
-  { ma:'101096', ten:'Giang Anh Nội Thất Đẹp', tenDay:'CÔNG TY TNHH XÂY DỰNG THƯƠNG MẠI GIANG ANH NỘI THẤT ĐẸP', khuVuc:'127001', tinh:'Cần Thơ', cuaHang:[
+  { ma:'101096', ten:'Giang Anh', tenDay:'CÔNG TY TNHH XÂY DỰNG THƯƠNG MẠI GIANG ANH NỘI THẤT ĐẸP', khuVuc:'127001', tinh:'Cần Thơ', cuaHang:[
       { diaChi:'230 Đường 3 Tháng 2, Phường Tân An, Thành phố Cần Thơ', sdt:'0939767976', tinh:'Cần Thơ', lat:10.0257649, lng:105.7556564, ganDung:true } ]},
   { ma:'101097', ten:'Tấn Phước', tenDay:'CÔNG TY TNHH XÂY DỰNG THƯƠNG MẠI VÀ DỊCH VỤ TẤN PHƯỚC', khuVuc:'127001', tinh:'Cần Thơ', cuaHang:[
       { diaChi:'98/14 Tầm Vu, Phường Tân An, Thành phố Cần Thơ', sdt:'0917239378', tinh:'Cần Thơ', lat:10.0257649, lng:105.7556564, ganDung:true } ]},
@@ -34,7 +34,7 @@ var DAI_LY = [
       { diaChi:'133, Đường 3/2, Phường Tân An, Thành phố Cần Thơ', sdt:'0907999279', tinh:'Cần Thơ', lat:10.0257649, lng:105.7556564, ganDung:true } ]},
   { ma:'109995', ten:'Vĩnh Linh', tenDay:'CÔNG TY TNHH MỘT THÀNH VIÊN TƯ VẤN XÂY DỰNG VĨNH LINH', khuVuc:'127001', tinh:'Cần Thơ', cuaHang:[
       { diaChi:'280B/14, Đường Nguyễn Văn Linh, Khu vực Bình Dương, Phường Long Tuyền, Thành phố Cần Thơ', sdt:'0932949933', tinh:'Cần Thơ', lat:10.0462977, lng:105.7233814, ganDung:true } ]},
-  { ma:'111097', ten:'Ngọc Nhân - Hưng Phúc Thịnh', tenDay:'CÔNG TY TNHH THƯƠNG MẠI-XÂY DỰNG NGỌC NHÂN-HƯNG PHÚC THỊNH', khuVuc:'127001', tinh:'Cần Thơ', cuaHang:[
+  { ma:'111097', ten:'Ngọc Nhân', tenDay:'CÔNG TY TNHH THƯƠNG MẠI-XÂY DỰNG NGỌC NHÂN-HƯNG PHÚC THỊNH', khuVuc:'127001', tinh:'Cần Thơ', cuaHang:[
       { diaChi:'Số 407A, Đường Nguyễn Văn Cừ, Phường An Bình, Thành phố Cần Thơ', sdt:'0949761122', tinh:'Cần Thơ', lat:9.9983647, lng:105.7057792, ganDung:true } ]},
   { ma:'111795', ten:'Hoa Thành Phát', tenDay:'CÔNG TY TNHH MỘT THÀNH VIÊN ĐẦU TƯ HOA THÀNH PHÁT', khuVuc:'127001', tinh:'Cần Thơ', cuaHang:[
       { diaChi:'K2-1 Võ Nguyên Giáp, Phường Hưng Phú, Thành phố Cần Thơ', sdt:'0943837862', tinh:'Cần Thơ', lat:9.9932689, lng:105.8114175, ganDung:true } ]},
