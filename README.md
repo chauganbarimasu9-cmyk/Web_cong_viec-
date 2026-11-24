@@ -24,3 +24,9 @@ Settings → Pages → Source: *Deploy from a branch* → Branch `main`, thư m�
 - Khoá Gemini chỉ đặt trong *Script properties* của Apps Script, không ghi vào mã hay repo.
 
 Thư mục `Mau/` (dữ liệu gốc, file thiết kế .ai, slide nội bộ, font bản quyền) chỉ để trên máy, không đưa lên repo.
+
+## Bản riêng khu vực 27 (Cần Thơ)
+Thư mục `kv27/` là bản riêng y như bản chính, chỉ khác danh sách cửa hàng: 18 đại lý tiểu khu 127001 (trung tâm Cần Thơ), lấy từ file "2026_ TMDT_Danh sach Nhan su Dai ly su dung zalo-27 -01.xlsx" (file Excel không đưa lên repo).
+- Web: `https://chauganbarimasu9-cmyk.github.io/Web_cong_viec-/kv27/`
+- Tờ in: `.../kv27/to-roi.html`, tờ điện thoại: `.../kv27/to-roi-web.html`
+- Danh sách cửa hàng: `kv27/dai-ly.js`. Ảnh dùng chung `assets/img/`. Sửa giao diện bản chính thì nhớ chép sang `kv27/` (trừ `dai-ly.js` và chữ "Cần Thơ", số đại lý).
