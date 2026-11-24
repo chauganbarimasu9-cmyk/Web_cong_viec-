@@ -5,7 +5,7 @@
 //   - lat/lng: trung tâm phường (gần đúng, ganDung). Nút "Chỉ đường" tìm theo địa chỉ.
 
 var HOTLINE_HO_TRO = '0705304244';          // Hotline hỗ trợ kỹ thuật / báo giá công trình
-var ZALO_HO_TRO = '0939164171';             // Zalo hỗ trợ & tư vấn
+var ZALO_HO_TRO = '0705304244';             // Zalo hỗ trợ & tư vấn
 var HOTLINE_HO_TRO_TEN = 'Hỗ trợ kỹ thuật Đồng Tâm';
 var LINK_MAP_TAT_CA = '';
 
