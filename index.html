@@ -181,6 +181,30 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .thanh .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:1.25fr 1fr;gap:8px}
 .thanh .nut{height:46px;font-size:14px}
 .an{display:none!important}
+/* Bảng chi tiết sản phẩm (mở ngay trên trang, không rời web) */
+.ct-nen{position:fixed;inset:0;z-index:80;background:rgba(20,12,12,.55);display:none;align-items:flex-end;justify-content:center}
+.ct-nen.mo{display:flex}
+.ct-tam{background:var(--the);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;position:relative;padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+@media(min-width:600px){.ct-nen{align-items:center}.ct-tam{border-radius:18px;max-height:88vh}}
+.ct-dong{position:absolute;right:10px;top:10px;z-index:2;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.95);font-size:20px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.ct-anh{aspect-ratio:1/1;background:#EEE7E4 center/contain no-repeat}
+.ct-nd{padding:14px 16px 0}
+.ct-nd h3{font-size:20px;font-weight:900;letter-spacing:-.2px}
+.ct-nd .ma-sp{font-size:12px;color:var(--phu);margin-top:2px;word-break:break-all}
+.ct-nd .gia{font-size:22px;font-weight:900;color:var(--do);margin-top:8px}
+.ct-nd .gia small{font-size:13px;font-weight:600;color:var(--phu)}
+.ct-nd .uoc{font-size:13.5px;color:var(--phu);margin-top:2px}
+.ct-ds{list-style:none;margin-top:12px;border-top:1px solid var(--vien)}
+.ct-ds li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--vien);font-size:14px}
+.ct-ds li span{color:var(--phu)}
+.ct-ds li b{text-align:right}
+.ct-nd .note{font-size:12.5px;color:var(--phu);margin-top:10px}
+.ct-nut{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.ct-nut a{height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;border:1.5px solid var(--do);color:var(--do)}
+.ct-nut a.c{background:var(--do);color:#fff}
+.ct-nut a.z{background:#0068FF;border-color:#0068FF;color:#fff}
+.ct-nut a.r{grid-column:1/-1}
+body.khoa{overflow:hidden}
 </style>
 </head>
 <body>
@@ -333,13 +357,14 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   <a class="nut" id="thanh-goi">📞 Gọi tư vấn</a>
 </div></nav>
 
+<div class="ct-nen" id="ct-nen" role="dialog" aria-modal="true" aria-label="Chi tiết sản phẩm"><div class="ct-tam" id="ct-tam"></div></div>
 <script src="dai-ly.js"></script>
 <script>
 (function(){
 'use strict';
 var APPS_URL='https://script.google.com/macros/s/AKfycbyrO8symCYOkWsGG0nRWPF7gpndC3mzEVUk15UvWrA0O81ZUumW-kX_gEOZhtCJ34bMVQ/exec';
 var APP_KEY='QDy3MCObF1FLdoBexB9XO3dECy64';
-var CACHE_KEY='tg_cache_v2', CACHE_GIO=6;   // giữ bảng giá 6 tiếng trên máy khách
+var CACHE_KEY='tg_cache_v3', CACHE_GIO=6;   // giữ bảng giá 6 tiếng trên máy khách
 var HAO_HUT=1.02;   // mua dư 1–2%
 
 var qs=new URLSearchParams(location.search);
@@ -442,7 +467,7 @@ function gonDuLieu(res){
     var u=anhCua(img,r.sap);
     if(!r.le || !u) return;
     var t=tt[r.ma]||{};
-    out.sp.push({ma:r.ma, kc:String(r.kc||'').toLowerCase(), x:r.cat, le:+r.le, cl:r.gio?1:0, img:u,
+    out.sp.push({ma:r.ma, sap:String(r.sap||''), kc:String(r.kc||'').toLowerCase(), x:r.cat, le:+r.le, cl:r.gio?1:0, img:u,
       men:t.men||'', cn:t.congNang||'', tn:t.tinhNang||'', hv:t.hoaVan||'', mau:t.mau||''});
   });
   // Ngói lợp (chỉ viên lợp chính; phụ kiện nóc/rìa để đại lý bóc tách theo mái)
@@ -465,6 +490,7 @@ function apDung(d){
   if(d.ngoi&&d.ngoi.length) NGOI=d.ngoi;
   if(d.keo&&d.keo.length) KEO=d.keo;
   veTatCa(); veNgoi(); veKeo();
+  if(!document.getElementById('ct-nen').classList.contains('mo')) moTheoLink();
 }
 function taiDuLieu(){
   var cache=null;
@@ -576,7 +602,6 @@ function veKetQua(ds,t,luong,ns){
     el.innerHTML='<div class="kq-dau"><h4>'+esc(tieuDe)+'</h4></div><div class="trong">Ngân sách hơi thấp so với diện tích. Thử giảm diện tích, chọn khu vực khác, hoặc gọi đại lý để được tư vấn mẫu khuyến mãi.</div>';
     return;
   }
-  var dlq=DL?'&dl='+encodeURIComponent(DL.ma):'';
   el.innerHTML='<div class="kq-dau"><h4>'+esc(tieuDe)+'</h4><span>'+loc.length+' mẫu</span></div>'
     +'<div class="luoi">'+loc.slice(0,soHien).map(function(s){
       return '<div class="sp"><div class="anh" style="background-image:url(\''+esc(s.img)+'\')">'
@@ -586,7 +611,7 @@ function veKetQua(ds,t,luong,ns){
         +'<div class="dt">'+esc(s.kc.replace('x',' x '))+' · '+(s.x==='porcelain'?'Porcelain':'Ceramic')+(nhanMen(s)?' · '+nhanMen(s):'')+'</div>'
         +'<div class="gia">'+tien(s.le)+'<small> đ/m²</small></div>'
         +(luong?'<div class="du">≈ '+tienGon(s.le*luong)+' cho '+(Math.ceil(luong*10)/10).toLocaleString('vi-VN')+' m²</div>':'')
-        +'<a class="xem" href="https://lechilinhwork-lgtm.github.io/?ma='+encodeURIComponent(s.ma)+dlq+'">Xem chi tiết</a>'
+        +'<a class="xem" href="'+linkSP(s.ma)+'">Xem chi tiết</a>'
         +'</div></div>';
     }).join('')+'</div>'
     +(loc.length>soHien?'<button class="nut them" id="them">Xem thêm '+Math.min(12,loc.length-soHien)+' mẫu</button>':'')
@@ -607,7 +632,69 @@ var KEO_INFO={
 var THU_TU_KEO=['10006208','10006209','10006195','10006196','10002953','10002955'];
 var KEO=[];
 function keoTheoMa(ma){ return KEO.filter(function(k){return k.ma===ma;})[0]; }
-function linkSP(ma){ return 'https://lechilinhwork-lgtm.github.io/?ma='+encodeURIComponent(ma)+(DL?'&dl='+encodeURIComponent(DL.ma):''); }
+// "Xem chi tiết": mở bảng chi tiết ngay trên trang này (giữ đúng đại lý, số Zalo của bản web này)
+function linkSP(ma){ return '#xem='+encodeURIComponent(ma); }
+function timSP(ma){
+  var g=SP.filter(function(s){return s.ma===ma;})[0]; if(g) return {loai:'gach',d:g};
+  var n=NGOI.filter(function(s){return s.ma===ma;})[0]; if(n) return {loai:'ngoi',d:n};
+  var k=keoTheoMa(ma); if(k) return {loai:'keo',d:k};
+  return null;
+}
+function anhLon(u){ return String(u||'').replace(/=w480$/,'=w1000'); }
+function moChiTiet(ma){
+  var f=timSP(ma); if(!f) return false;
+  var d=f.d, ten='', ma2=d.ma, gia='', dv='', uoc='', ds=[], note='';
+  if(f.loai==='gach'){
+    ten=tenMau(d.ma); dv='đ/m²';
+    ds.push(['Kích thước',d.kc.replace('x',' x ')+' mm'],['Xương gạch',d.x==='porcelain'?'Porcelain (bán sứ)':'Ceramic']);
+    if(nhanMen(d)) ds.push(['Bề mặt',nhanMen(d)]);
+    if(d.tn==='KHÁNG_KHUẨN') ds.push(['Tính năng','Kháng khuẩn Nano']);
+    if(d.cl) ds.push(['Tình trạng','Mẫu bán chạy']);
+    var m2=dienTich(); if(m2){ var l=m2*HAO_HUT; uoc='≈ '+tienGon(d.le*l)+' cho '+(Math.ceil(l*10)/10).toLocaleString('vi-VN')+' m² (đã cộng 2% hao hụt)'; }
+    note='Màu gạch thật có thể khác chút so với ảnh do màn hình. Nên xem mẫu thật tại đại lý trước khi mua.';
+  } else if(f.loai==='ngoi'){
+    var mau=NGOI_MAU[d.code]||[d.code];
+    ten='Ngói '+d.dong+' · '+mau[0]; dv='đ/viên'; ma2=d.code;
+    ds.push(['Dòng ngói',NGOI_DONG[d.dong]?NGOI_DONG[d.dong].mo:d.dong]);
+    if(d.kc) ds.push(['Kích thước',String(d.kc)]);
+    ds.push(['Định mức','Khoảng '+VIEN_M2_NGOI+' viên/m² mái']);
+    if(mau[2]) ds.push(['Đặt hàng','Màu đặt trước, hỏi đại lý thời gian giao']);
+  } else {
+    var i=KEO_INFO[d.ma]||{}; ten=i.ten||d.ma; dv='đ/bao';
+    ds.push(['Loại',i.loai||''],['Công dụng',i.dung||'']);
+    if(i.m2Bao) ds.push(['Định mức','Bao 25 kg ≈ '+String(i.m2Bao).replace('.',',')+' m²']);
+    if(i.kg) ds.push(['Quy cách','Bao '+i.kg+' kg']);
+  }
+  var sdt = DL ? sdtCH(DL.cuaHang[0]) : HOTLINE_HO_TRO, zalo = DL ? sdt : ZALO_HO_TRO;
+  document.getElementById('ct-tam').innerHTML='<button class="ct-dong" id="ct-dong" aria-label="Đóng">×</button>'
+    +'<div class="ct-anh" style="background-image:url(\''+esc(anhLon(d.img))+'\')"></div>'
+    +'<div class="ct-nd"><h3>'+esc(ten)+'</h3><div class="ma-sp">Mã: '+esc(ma2)+'</div>'
+    +'<div class="gia">'+tien(d.le)+'<small> '+dv+'</small></div>'
+    +(uoc?'<div class="uoc">'+esc(uoc)+'</div>':'')
+    +'<ul class="ct-ds">'+ds.map(function(x){return '<li><span>'+esc(x[0])+'</span><b>'+esc(x[1])+'</b></li>';}).join('')+'</ul>'
+    +'<div class="note">Giá bán lẻ niêm yết (đã gồm VAT), chỉ để tham khảo.'+(note?' '+note:'')+'</div>'
+    +'<div class="ct-nut"><a class="z" href="https://zalo.me/'+esc(zalo)+'" target="_blank" rel="noopener">💬 Hỏi qua Zalo</a>'
+    +'<a class="c" href="tel:'+esc(sdt)+'">📞 Gọi tư vấn</a>'
+    +'<a class="r" href="#dai-ly" id="ct-dl">📍 Xem mẫu thật tại đại lý gần bạn</a></div></div>';
+  document.getElementById('ct-nen').classList.add('mo'); document.body.classList.add('khoa');
+  document.getElementById('ct-tam').scrollTop=0;
+  document.getElementById('ct-dong').onclick=dongChiTiet;
+  document.getElementById('ct-dl').onclick=function(e){ e.preventDefault(); dongChiTiet(); document.getElementById('dai-ly').scrollIntoView({behavior:'smooth'}); };
+  return true;
+}
+function dongChiTiet(){
+  document.getElementById('ct-nen').classList.remove('mo'); document.body.classList.remove('khoa');
+  if(/^#xem=/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search);
+}
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="#xem="]'); if(!a) return;
+  e.preventDefault();
+  var ma=decodeURIComponent(a.getAttribute('href').slice(5));
+  if(moChiTiet(ma)) history.replaceState(null,'',location.pathname+location.search+'#xem='+encodeURIComponent(ma));
+});
+document.getElementById('ct-nen').addEventListener('click',function(e){ if(e.target===this) dongChiTiet(); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') dongChiTiet(); });
+function moTheoLink(){ var m=location.hash.match(/^#xem=(.+)$/); if(m) moChiTiet(decodeURIComponent(m[1])); }
 // Lượng bột chà ron (kg/m²) = (A+B)/(A·B) × dày gạch × rộng ron × 1,6 (mm)
 function kgRonM2(kc){
   var m=String(kc).match(/(\d+)x(\d+)/); if(!m) return 0.15;
